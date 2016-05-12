@@ -15,8 +15,7 @@ rankingcompleto <- function(resultado, num = "mejor") {
   a <- matrix(data[, col], 4706,1)
   data[, col] <- suppressWarnings(as.numeric(a))
   data[, 2] <- as.character(data[, 2])
-  
-  r <- vector() 
+
   e <- levels(data[, 7])
   
   for(i in 1:length(e)) {
@@ -35,16 +34,15 @@ rankingcompleto <- function(resultado, num = "mejor") {
     
   }
   
-  r<- as.data.frame(matrix(r, length(e), 2, byrow = TRUE))
-  colnames(r) <- c("Estado","Hospital")
-  rownames(r) <- e
-  
+  r<- data.frame(matrix(r, length(e), 2, byrow=TRUE))
+
   if (!((resultado == "ataque") | (resultado == "falla")
         | (resultado == "neumonia"))) {
     stop ("resultado inválido")
   }
+  colnames(r) <- c("Estado","Hospital")
+   r
 
-  r
 }
 
 
