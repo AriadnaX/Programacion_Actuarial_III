@@ -16,6 +16,7 @@ rankingcompleto <- function(resultado, num = "mejor") {
   data[, col] <- suppressWarnings(as.numeric(a))
   data[, 2] <- as.character(data[, 2])
 
+  r <- vector()
   e <- levels(data[, 7])
   
   for(i in 1:length(e)) {
