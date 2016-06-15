@@ -133,180 +133,89 @@ $(document).ready(function () {
 <ul>
 <li>Une los datos de test con los de training, para crear un solo conjunto de datos.</li>
 </ul>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Primero cargamos los datos de training y test.</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">training &lt;- read.table(paste(a,“train/X_train.txt”,sep = “/”),quote =“&quot;”)</td>
-</tr>
-<tr class="even">
-<td align="left">test &lt;- read.table(paste(a,“test/X_test.txt”,sep = “/”),quote =“&quot;”)</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Después, juntamos los datos en un solo conjunto.</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">datos &lt;- rbind(training,test)</td>
-</tr>
-</tbody>
-</table>
+<div id="primero-cargamos-los-datos-de-training-y-test." class="section level5">
+<h5>Primero cargamos los datos de training y test.</h5>
+<pre><code> training &lt;- read.table(paste(a,&quot;train/X_train.txt&quot;,sep = &quot;/&quot;),quote =&quot;\&quot;&quot;)
+
+ test &lt;- read.table(paste(a,&quot;test/X_test.txt&quot;,sep = &quot;/&quot;),quote =&quot;\&quot;&quot;)</code></pre>
+</div>
+<div id="despues-juntamos-los-datos-en-un-solo-conjunto." class="section level5">
+<h5>Después, juntamos los datos en un solo conjunto.</h5>
+<pre><code> datos &lt;- rbind(training,test)</code></pre>
 <ul>
 <li>Extrae únicamente las medidas de media y desviación estándar de cada medición.</li>
 </ul>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Primero agregamos al archivo features.txt para obtener los encabezados de “datos”.</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">f &lt;- read.table(paste(a,“features.txt”,sep = “/”),quote =“&quot;”)[,2]</td>
-</tr>
-<tr class="even">
-<td align="left">colnames(datos) &lt;- f</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Ahora usamos “grep” se encarga de buscar coincidencias respecto a un argumento, ya que queremos extraer solamente Media y Desviación estándar. Y agregamos las medidas a la base “datos”.</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Medidas &lt;- grep(‘-(mean|std)\(’,f)</td>
-</tr>
-<tr class="even">
-<td align="left">datos &lt;- subset(datos,select=Medidas)</td>
-</tr>
-</tbody>
-</table>
+</div>
+<div id="primero-agregamos-al-archivo-features.txt-para-obtener-los-encabezados-de-datos." class="section level5">
+<h5>Primero agregamos al archivo features.txt para obtener los encabezados de “datos”.</h5>
+<pre><code> f &lt;- read.table(paste(a,&quot;features.txt&quot;,sep = &quot;/&quot;),quote =&quot;\&quot;&quot;)[,2]
+
+ colnames(datos) &lt;- f</code></pre>
+</div>
+<div id="ahora-usamos-grep-se-encarga-de-buscar-coincidencias-respecto-a-un-argumento-ya-que-queremos-extraer-solamente-media-y-desviacion-estandar.-y-agregamos-las-medidas-a-la-base-datos." class="section level5">
+<h5>Ahora usamos “grep” se encarga de buscar coincidencias respecto a un argumento, ya que queremos extraer solamente Media y Desviación estándar. Y agregamos las medidas a la base “datos”.</h5>
+<pre><code> Medidas &lt;- grep('-(mean|std)\\(',f)
+
+ datos &lt;- subset(datos,select=Medidas)</code></pre>
 <ul>
 <li>Coloca etiquetas apropiadas en la base de datos con nombres de variables que las describan.</li>
 </ul>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Ahora usamos la función “sub” para reenombrar las variables.</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">colnames(datos) &lt;- sub(“mean”, “Mean”, colnames(datos))</td>
-</tr>
-<tr class="even">
-<td align="left">colnames(datos) &lt;- sub(“std”, “Std”, colnames(datos))</td>
-</tr>
-<tr class="odd">
-<td align="left">colnames(datos) &lt;- sub(“t”, “Time”, colnames(datos))</td>
-</tr>
-<tr class="even">
-<td align="left">colnames(datos) &lt;- sub(“f”, “Frequency”, colnames(datos))</td>
-</tr>
-<tr class="odd">
-<td align="left">colnames(datos) &lt;- sub(“BodyBody”, “Body”, colnames(datos))</td>
-</tr>
-<tr class="even">
-<td align="left">colnames(datos) &lt;- sub(“^”, “MeanOf”, colnames(datos))</td>
-</tr>
-<tr class="odd">
-<td align="left">colnames(datos) &lt;- sub(“-”, “”, colnames(datos))</td>
-</tr>
-</tbody>
-</table>
+</div>
+<div id="ahora-usamos-la-funcion-sub-para-reenombrar-las-variables." class="section level5">
+<h5>Ahora usamos la función “sub” para reenombrar las variables.</h5>
+<pre><code> colnames(datos) &lt;- sub(&quot;mean&quot;, &quot;Mean&quot;, colnames(datos))
+
+ colnames(datos) &lt;- sub(&quot;std&quot;, &quot;Std&quot;, colnames(datos))
+
+ colnames(datos) &lt;- sub(&quot;t&quot;, &quot;Time&quot;, colnames(datos))
+
+ colnames(datos) &lt;- sub(&quot;f&quot;, &quot;Frequency&quot;, colnames(datos))
+
+ colnames(datos) &lt;- sub(&quot;BodyBody&quot;, &quot;Body&quot;, colnames(datos))
+
+ colnames(datos) &lt;- sub(&quot;^&quot;, &quot;MeanOf&quot;, colnames(datos))
+
+ colnames(datos) &lt;- sub(&quot;-&quot;, &quot;&quot;, colnames(datos))</code></pre>
 <ul>
 <li>Usa nombres de actividad para describir los nombres de las actividades en la base de datos.</li>
 </ul>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Primero cargamos los datos de training y test, y los combinamos por filas.</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Atrain &lt;- read.table(paste(a,“train/y_train.txt”,sep = “/”),quote =“&quot;”)</td>
-</tr>
-<tr class="even">
-<td align="left">Atest &lt;- read.table(paste(a,“test/y_test.txt”,sep = “/”),quote =“&quot;”)</td>
-</tr>
-<tr class="odd">
-<td align="left">Actividad &lt;- rbind(Atrain,Atest)[,1]</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Ahora usamos las 6 actividades vistas en el experimento para describir los nombres en la base.</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">labels &lt;- c(“WALKING”, “WALKING_UPSTAIRS”, “WALKING_DOWNSTAIRS”,</td>
-</tr>
-<tr class="even">
-<td align="left">“SITTING”, “STANDING”, “LAYING”)</td>
-</tr>
-<tr class="odd">
-<td align="left">Actividad &lt;- labels[Actividad]</td>
-</tr>
-<tr class="even">
-<td align="left">datos &lt;- cbind(Actividad ,datos)</td>
-</tr>
-</tbody>
-</table>
+</div>
+<div id="primero-cargamos-los-datos-de-training-y-test-y-los-combinamos-por-filas." class="section level5">
+<h5>Primero cargamos los datos de training y test, y los combinamos por filas.</h5>
+<pre><code> Atrain &lt;- read.table(paste(a,&quot;train/y_train.txt&quot;,sep = &quot;/&quot;),quote =&quot;\&quot;&quot;)
+
+ Atest &lt;- read.table(paste(a,&quot;test/y_test.txt&quot;,sep = &quot;/&quot;),quote =&quot;\&quot;&quot;)
+
+ Actividad &lt;- rbind(Atrain,Atest)[,1]
+ </code></pre>
+</div>
+<div id="ahora-usamos-las-6-actividades-vistas-en-el-experimento-para-describir-los-nombres-en-la-base." class="section level5">
+<h5>Ahora usamos las 6 actividades vistas en el experimento para describir los nombres en la base.</h5>
+<pre><code> labels &lt;- c(&quot;WALKING&quot;, &quot;WALKING_UPSTAIRS&quot;, &quot;WALKING_DOWNSTAIRS&quot;,
+        &quot;SITTING&quot;, &quot;STANDING&quot;, &quot;LAYING&quot;)
+
+ Actividad &lt;- labels[Actividad]
+
+ datos &lt;- cbind(Actividad ,datos)</code></pre>
 <ul>
 <li>Con los datos del paso anterior, crea una segunda base de datos independiente con el promedio de cada variable para cada actividad y cada sujeto.</li>
 </ul>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Primero cargamos los datos de los voluntarios, y los combinamos por filas, y después actualizamos “datos” para que aparezcan los voluntarios como columna.</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">vtrain &lt;- read.table(paste(a,“train/subject_train.txt”,sep = “/”),quote =“&quot;”)</td>
-</tr>
-<tr class="even">
-<td align="left">vtest &lt;- read.table(paste(a,“test/subject_test.txt”,sep = “/”),quote =“&quot;”)</td>
-</tr>
-<tr class="odd">
-<td align="left">Voluntarios &lt;- rbind(vtrain,vtest)[,1]</td>
-</tr>
-<tr class="even">
-<td align="left">datos &lt;- cbind(Voluntarios,datos)</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Por último creamos nuestra segunda base de datos donde vendrán los promedios de cada variable para cada actividad y cada voluntario, y creamos un archivo donde aparece la base de datos ordenada con los promedios de cada variable.</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">promedio &lt;- datos %&gt;% group_by(Voluntarios,Actividad) %&gt;% summarise_each(funs(mean))</td>
-</tr>
-<tr class="even">
-<td align="left">write.table(promedio, row.names= F,file = “final.txt”)</td>
-</tr>
-</tbody>
-</table>
+</div>
+<div id="primero-cargamos-los-datos-de-los-voluntarios-y-los-combinamos-por-filas-y-despues-actualizamos-datos-para-que-aparezcan-los-voluntarios-como-columna." class="section level5">
+<h5>Primero cargamos los datos de los voluntarios, y los combinamos por filas, y después actualizamos “datos” para que aparezcan los voluntarios como columna.</h5>
+<pre><code>vtrain &lt;- read.table(paste(a,&quot;train/subject_train.txt&quot;,sep = &quot;/&quot;),quote =&quot;\&quot;&quot;)
+
+vtest &lt;- read.table(paste(a,&quot;test/subject_test.txt&quot;,sep = &quot;/&quot;),quote =&quot;\&quot;&quot;)
+
+Voluntario &lt;- rbind(vtrain,vtest)[,1]
+
+datos &lt;- cbind(Voluntario,datos) </code></pre>
+</div>
+<div id="por-ultimo-creamos-nuestra-segunda-base-de-datos-donde-vendran-los-promedios-de-cada-variable-para-cada-actividad-y-cada-voluntario-y-creamos-un-archivo-donde-aparece-la-base-de-datos-ordenada-con-los-promedios-de-cada-variable." class="section level5">
+<h5>Por último creamos nuestra segunda base de datos donde vendrán los promedios de cada variable para cada actividad y cada voluntario, y creamos un archivo donde aparece la base de datos ordenada con los promedios de cada variable.</h5>
+<pre><code>promedio &lt;- datos %&gt;% group_by(Voluntario,Actividad) %&gt;% summarise_each(funs(mean))
+write.table(promedio, row.names= F,file = &quot;final.txt&quot;) </code></pre>
+</div>
 </div>
 </div>
 </div>
